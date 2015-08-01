@@ -1,0 +1,22 @@
+{
+  "name": "generator-stylize",
+  "version": "0.0.0",
+  "description": "Scaffolds out a Stylize project.",
+  "main": "app/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "yeoman-generator",
+    "stylize"
+  ],
+  "files": [
+    "app"
+  ],
+  "author": "Josh Miller",
+  "license": "GPL-3.0",
+  "dependencies": {
+    "lodash": "^3.10.0",
+    "yeoman-generator": "^0.20.2"
+  }
+}
