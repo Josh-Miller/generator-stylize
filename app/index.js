@@ -1,7 +1,8 @@
 'use strict';
 
 var generators = require('yeoman-generator'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    path = require('path');
 
 module.exports = generators.Base.extend({
   constructor: function() {
@@ -16,6 +17,29 @@ module.exports = generators.Base.extend({
         name: 'name',
         message: 'What is the name of this project?',
         default: (this.appname) ? this.appname : 'myStylize'
+      },
+      {
+        name: 'description',
+        message: 'What is the description of your project?',
+      },
+      {
+        type: 'list',
+        name: 'compiler',
+        message: 'Choose a pattern compiler.',
+        default: {
+          name: 'Handlebars',
+          value: 'stylize-handlebars',
+        },
+        choices: [
+          {
+            name: 'Handlebars',
+            value: 'stylize-handlebars',
+          },
+          {
+            name: 'Mustache',
+            value: 'stylize-mustache',
+          },
+        ],
       },
       {
         type: 'confirm',
@@ -52,23 +76,21 @@ module.exports = generators.Base.extend({
       this.copy('config.yml');
     }
   },
-  // packagejson: function () {
-  //   if (this.verbose) {
-  //     this.log.info('Configuring package.json');
-  //   }
+  packagejson: function () {
+    if (this.verbose) {
+      this.log.info('Configuring package.json');
+    }
 
-  //   var filepath = path.join(this.destinationRoot(), 'package.json');
-  //   var pkg = JSON.parse(this.readFileAsString(filepath));
+    var filepath = path.join(this.destinationRoot(), 'package.json');
 
-  //   pkg.name = (this.prompts.siteName || 'replace me')
-  //     .replace(/[^0-9a-z_\-]/ig, '-')
-  //     .replace(/-+/g, '-');
-  //   pkg.version = '0.0.0';
-  //   pkg.description = this.prompts.siteDescription;
-  //   pkg.homepage = this.prompts.siteUrl;
-  //   pkg.main = 'app/index.html';
+    var pkg = {};
 
-  //   delete pkg.devDependencies['apache-server-configs'];
-  //   this.writeFileFromString(JSON.stringify(pkg, null, 2), filepath);
-  // },
+    pkg.name = this.appname;
+    pkg.version = '0.0.0';
+    pkg.description = this.description;
+    pkg.dependencies = {};
+    pkg.dependencies[this.compiler] = "^0.0.0";
+
+    this.writeFileFromString(JSON.stringify(pkg, null, 2), filepath);
+  },
 });
