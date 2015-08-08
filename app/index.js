@@ -8,6 +8,13 @@ module.exports = generators.Base.extend({
   constructor: function() {
     generators.Base.apply(this, arguments);
 
+    this.on('end', function () {
+      this.installDependencies({
+        bower: false,
+        npm: true
+      });
+    });
+
   },
   prompting: function () {
     var done = this.async();

@@ -8,3 +8,4 @@ exportData: '/src/data/drupal.yml'
 exportDestination: '/export/patterns'
 
 plugins:
+  <%= compiler %>:
