@@ -2,6 +2,7 @@
 
 var generators = require('yeoman-generator'),
     _ = require('lodash'),
+    exec = require('child_process').exec,
     path = require('path');
 
 module.exports = generators.Base.extend({
@@ -92,7 +93,7 @@ module.exports = generators.Base.extend({
 
     var pkg = {};
 
-    pkg.name = this.appname;
+    pkg.name = _.kebabCase(this.appname);
     pkg.version = '0.0.0';
     pkg.description = this.description;
     pkg.dependencies = {};
@@ -100,4 +101,21 @@ module.exports = generators.Base.extend({
 
     this.writeFileFromString(JSON.stringify(pkg, null, 2), filepath);
   },
+
+  /**
+   * Runs `npm install`.
+   */
+  installNpmPackages: function () {
+    if (this.options['skip-install']) { return; }
+
+    function handleStd(error, stdout, stderr) {
+      console.log('stdout: ' + stdout);
+      console.log('stderr: ' + stderr);
+      if (error !== null) {
+        console.log('exec error: ' + error);
+      }
+    }
+
+    exec('npm install', handleStd);
+  }
 });
