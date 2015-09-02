@@ -100,22 +100,5 @@ module.exports = generators.Base.extend({
     pkg.dependencies[this.compiler] = "^0.0.0";
 
     this.writeFileFromString(JSON.stringify(pkg, null, 2), filepath);
-  },
-
-  /**
-   * Runs `npm install`.
-   */
-  installNpmPackages: function () {
-    if (this.options['skip-install']) { return; }
-
-    function handleStd(error, stdout, stderr) {
-      console.log('stdout: ' + stdout);
-      console.log('stderr: ' + stderr);
-      if (error !== null) {
-        console.log('exec error: ' + error);
-      }
-    }
-
-    exec('npm install', handleStd);
   }
 });
