@@ -77,6 +77,14 @@ module.exports = generators.Base.extend({
       done();
     });
   },
+  getFrontEnd: function () {
+    var done = this.async();
+
+    this.remote('AtenDesignGroup', 'stylizer-front-end', 'master', function(err, remote) {
+      // remote.copy('.', 'src');
+      done();
+    });
+  },
   createConfig: function() {
     if (!this.defaultPatterns) {
       this.template('_configPlain.yml', 'config.yml');

@@ -4,6 +4,7 @@ patternsRoot: ''
 
 destination: ''
 data: ''
+dataPatterns: ''
 exportData: ''
 exportDestination: ''
 
