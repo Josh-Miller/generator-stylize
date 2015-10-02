@@ -80,7 +80,7 @@ module.exports = generators.Base.extend({
   getFrontEnd: function () {
     var done = this.async();
 
-    this.remote('AtenDesignGroup', 'stylizer-front-end', 'master', function(err, remote) {
+    this.remote('AtenDesignGroup', 'stylize-front-end', 'master', function(err, remote) {
       // remote.copy('.', 'src');
       done();
     });
